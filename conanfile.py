@@ -20,8 +20,8 @@ class ArmadilloConan(ConanFile):
         "use_wrapper":[True,False],
         "build_shared":[True,False]}
     default_options = ("use_system_blas=True",
-                       "link_with_mkl=False",
-                       "use_extern_cxx11_rng=False",
+                       # "link_with_mkl=False",
+                       # "use_extern_cxx11_rng=False",
                        "use_wrapper=True",
                        "build_shared=False")
     generators = "cmake"
@@ -37,8 +37,8 @@ class ArmadilloConan(ConanFile):
     def configure_cmake(self):
         cmake = CMake(self)
 
-        if self.options.link_with_mkl and not self.options.use_system_blas:
-             raise Exception("Link with MKL options can only be True when use_system_blas is also True")
+        # if self.options.link_with_mkl and not self.options.use_system_blas:
+        #      raise Exception("Link with MKL options can only be True when use_system_blas is also True")
         
         cmake.definitions["ARMA_USE_WRAPPER"] = self.options.use_wrapper
         cmake.definitions["ARMA_NO_DEBUG"] = True

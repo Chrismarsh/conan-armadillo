@@ -60,12 +60,12 @@ class ArmadilloConan(ConanFile):
         self.run("tar -xvf {0}".format(self.source_tar_file))
 
         if not self.options.with_lapack:
-            tools.replace_in_file(file_path="sources/include/armadillo_bits/config.hpp",
+            tools.replace_in_file(file_path="armadillo-%s/include/armadillo_bits/config.hpp"%self.version,
                                search="#define ARMA_USE_LAPACK",
                                replace="//#define ARMA_USE_LAPACK")
         
         if not self.options.with_blas:
-            tools.replace_in_file(file_path="sources/include/armadillo_bits/config.hpp",
+            tools.replace_in_file(file_path="armadillo-%s/include/armadillo_bits/config.hpp"%self.version,
                                search="#define ARMA_USE_BLAS",
                                replace="//#define ARMA_USE_BLAS")
 

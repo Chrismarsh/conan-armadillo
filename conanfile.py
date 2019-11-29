@@ -24,17 +24,17 @@ class ArmadilloConan(ConanFile):
     default_options = ("use_system_blas=True",
                        "link_with_mkl=False",
                        # "use_extern_cxx11_rng=False",
-                       "with_lapack=True",
-                       "with_blas=True",
-                       "use_wrapper=True",
-                       "build_shared=False")
+                       "with_lapack=False",
+                       "with_blas=False",
+                       "use_wrapper=False",
+                       "build_shared=True")
     generators = "cmake"
 
     source_folder_name = "armadillo-{0}".format(version)
     source_tar_file = "{0}.tar.xz".format(source_folder_name)
 
     def requirements(self):
-        if not self.options.use_system_blas:
+        if self.options.with_blas and not self.options.use_system_blas:
             self.requires("openblas/[>=0.3.5]@conan/stable")
             self.requires("lapack/3.7.1@conan/stable")
 

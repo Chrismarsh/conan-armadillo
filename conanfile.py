@@ -56,16 +56,18 @@ class ArmadilloConan(ConanFile):
     def source(self):
         tools.download(
             "http://sourceforge.net/projects/arma/files/{0}".format(self.source_tar_file), self.source_tar_file)
-       
+
         self.run("tar -xvf {0}".format(self.source_tar_file))
 
+        arma_config_file = os.path.join("armadillo-%s"%self.version, "include", "armadillo_bits", "config.hpp")
+
         if not self.options.with_lapack:
-            tools.replace_in_file(file_path="armadillo-%s/include/armadillo_bits/config.hpp"%self.version,
+            tools.replace_in_file(file_path=arma_config_file,
                                search="#define ARMA_USE_LAPACK",
                                replace="//#define ARMA_USE_LAPACK")
-        
+
         if not self.options.with_blas:
-            tools.replace_in_file(file_path="armadillo-%s/include/armadillo_bits/config.hpp"%self.version,
+            tools.replace_in_file(file_path=arma_config_file,
                                search="#define ARMA_USE_BLAS",
                                replace="//#define ARMA_USE_BLAS")
 
@@ -83,4 +85,3 @@ class ArmadilloConan(ConanFile):
     def package_info(self):
         self.cpp_info.libs = ["armadillo"]
         return
-      

@@ -20,14 +20,14 @@ class ArmadilloConan(ConanFile):
         "with_lapack":[True,False],
         "with_blas":[True,False],
         "use_wrapper":[True,False],
-        "build_shared":[True,False]}
+        "shared":[True,False]}
     default_options = ("use_system_blas=True",
                        "link_with_mkl=False",
                        # "use_extern_cxx11_rng=False",
                        "with_lapack=False",
                        "with_blas=False",
                        "use_wrapper=False",
-                       "build_shared=True")
+                       "shared=True")
     generators = "cmake"
 
     source_folder_name = "armadillo-{0}".format(version)
@@ -47,7 +47,7 @@ class ArmadilloConan(ConanFile):
         cmake.definitions["ARMA_USE_WRAPPER"] = self.options.use_wrapper
         cmake.definitions["ARMA_NO_DEBUG"] = True
         cmake.definitions["DETECT_HDF5"] = False
-        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.build_shared
+        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
 
         cmake.configure(source_folder="armadillo-%s"%self.version)
         return cmake

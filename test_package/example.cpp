@@ -12,8 +12,8 @@ int main() {
 
     (m*m).print();
 
-    arma::vec singular_values = arma::svd(m);
-    singular_values.print("S");
+    // arma::vec singular_values = arma::svd(m);
+    // singular_values.print("S");
 
-    singular_values.save("singular_values.h5", arma::hdf5_binary);
+    // singular_values.save("singular_values.h5", arma::hdf5_binary);
 }

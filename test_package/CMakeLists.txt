@@ -5,6 +5,13 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(KEEP_RPATHS)
 
 
+
+if(APPLE)
+    ## NOTE: On macOS, replace -lblas -llapack with -framework Accelerate
+    set(CONAN_LIBS ${CONAN_LIBS} "-framework Accelerate")  # or "-framework accelerate" ?
+    message(STATUS "Detected macOS. Added '-framework Accelerate' to compiler flags")
+endif()
+
 add_executable(example example.cpp)
 target_link_libraries(example ${CONAN_LIBS})
 

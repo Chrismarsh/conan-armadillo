@@ -28,7 +28,7 @@ class ArmadilloConan(ConanFile):
                        "with_blas=False",
                        "use_wrapper=False",
                        "shared=True")
-    generators = "cmake"
+    generators = "cmake_find_package"
 
     source_folder_name = "armadillo-{0}".format(version)
     source_tar_file = "{0}.tar.xz".format(source_folder_name)

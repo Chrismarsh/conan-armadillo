@@ -12,7 +12,7 @@ class ArmadilloConan(ConanFile):
     author = "Darlan Cavalcante Moreira (darcamo@gmail.com)"
     url = "https://github.com/darcamo/conan-armadillo"
     description = "C++ library for linear algebra & scientific computing"
-    settings = "os", "build_type"
+    settings = "os", "arch", "compiler", "build_type"
     options = {
         # If true the recipe will use blas and lapack from system
         "use_system_blas": [True, False],

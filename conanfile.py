@@ -61,18 +61,18 @@ class ArmadilloConan(ConanFile):
 
         arma_config_file = os.path.join("armadillo-%s"%self.version, "include", "armadillo_bits", "config.hpp")
 
-        # if not self.options.with_lapack:
-        #     tools.replace_in_file(file_path=arma_config_file,
-        #                        search="#define ARMA_USE_LAPACK",
-        #                        replace="//#define ARMA_USE_LAPACK")
+        if not self.options.with_lapack:
+            tools.replace_in_file(file_path=arma_config_file,
+                               search="#define ARMA_USE_LAPACK",
+                               replace="//#define ARMA_USE_LAPACK")
 
-        # if not self.options.with_blas:
-        #     tools.replace_in_file(file_path=arma_config_file,
-        #                        search="#define ARMA_USE_BLAS",
-        #                        replace="//#define ARMA_USE_BLAS")
+        if not self.options.with_blas:
+            tools.replace_in_file(file_path=arma_config_file,
+                               search="#define ARMA_USE_BLAS",
+                               replace="//#define ARMA_USE_BLAS")
 
         if not self.options.link_with_mkl:
-            tools.replace_in_file(file_path=CMakeLists.txt,
+            tools.replace_in_file(file_path="CMakeLists.txt",
                                search="include(ARMA_FindMKL)",
                                replace="""#include(ARMA_FindMKL)
                                         set(MKL_FOUND "NO")""")

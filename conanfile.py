@@ -7,10 +7,8 @@ from conans import CMake, ConanFile, tools
 
 class ArmadilloConan(ConanFile):
     name = "armadillo"
-    version = "9.800.2"
     license = "Apache License 2.0"
-    author = "Darlan Cavalcante Moreira (darcamo@gmail.com)"
-    url = "https://github.com/darcamo/conan-armadillo"
+    url = "https://github.com/Chrismarsh/conan-armadillo"
     description = "C++ library for linear algebra & scientific computing"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -30,9 +28,6 @@ class ArmadilloConan(ConanFile):
                        "shared=True")
     generators = "cmake_find_package"
 
-    source_folder_name = "armadillo-{0}".format(version)
-    source_tar_file = "{0}.tar.xz".format(source_folder_name)
-
     def requirements(self):
         if self.options.with_blas and not self.options.use_system_blas:
             self.requires("openblas/[>=0.3.5]@conan/stable")
@@ -49,18 +44,17 @@ class ArmadilloConan(ConanFile):
         cmake.definitions["DETECT_HDF5"] = False
         cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
 
-        cmake.configure(source_folder="armadillo-%s"%self.version)
+        cmake.configure(source_folder="armadillo")
         return cmake
 
 
     def source(self):
-        tools.download(
-            "http://sourceforge.net/projects/arma/files/{0}".format(self.source_tar_file), self.source_tar_file)
+        tools.get(**self.conan_data["sources"][self.version])
 
-        self.run("tar -xvf {0}".format(self.source_tar_file))
+        os.rename("armadillo-{}".format(self.version), 'armadillo')
 
-        arma_config_file = os.path.join("armadillo-%s"%self.version, "include", "armadillo_bits", "config.hpp")
-        CMakeLists_path = os.path.join("armadillo-%s"%self.version, "CMakeLists.txt")
+        arma_config_file = os.path.join("armadillo", "include", "armadillo_bits", "config.hpp")
+        CMakeLists_path = os.path.join("armadillo", "CMakeLists.txt")
 
         if not self.options.with_lapack:
             tools.replace_in_file(file_path=arma_config_file,

@@ -1,14 +1,11 @@
-# conan-armadillo
-Conan recipe for the armadillo library.
+# armadillo
 
-You can generate a package in your local cache with the command (from the folder with the conanfile.py
+This is a minimal Conan build of the armadillo library for use with [CHM](https://github.com/Chrismarsh/CHM). 
+
+Build artifacts are uploaded to [Bintray](https://bintray.com/chrismarsh/CHM)
+
+
 ```
-conan create . youruser/stable
+conan install armadillo/9.800.2@CHM/stable
 ```
 
-Note: I have also created a repository in bintray with some recipes, including
-this one. If you don't want to download and build this recipe manually, run the
-command below and add `libraryname/version@darcamo/stable` to the conanfile.txt
-in in your own project.
-
-`conan remote add darcamo-bintray https://api.bintray.com/conan/darcamo/cppsim`
